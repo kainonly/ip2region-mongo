@@ -1,8 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+
+registerLocaleData(zh);
+
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { zh_CN } from 'ng-zorro-antd/i18n';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -10,9 +22,14 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
