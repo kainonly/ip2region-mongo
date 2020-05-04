@@ -16,11 +16,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-
+import { NzIconService } from 'ng-zorro-antd';
 
 @NgModule({
   declarations: [
@@ -28,18 +29,27 @@ import { environment } from '../environments/environment';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     NzLayoutModule,
     NzSpaceModule,
-    BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NzBreadCrumbModule,
-    NzMenuModule
+    NzMenuModule,
+    NzIconModule,
+    AppRoutingModule,
+    ServiceWorkerModule.register(
+      'ngsw-worker.js',
+      { enabled: environment.production }
+    )
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(
+    nzIconService: NzIconService
+  ) {
+    nzIconService.changeAssetsSource(environment.iconUrl);
+  }
 }
