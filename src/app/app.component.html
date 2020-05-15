@@ -1,19 +1,39 @@
 <nz-layout class="main-layout">
-  <ul nz-menu nzMode="horizontal">
-    <li nz-submenu nzTitle="控制台" nzIcon="dashboard">
-      <ul>
-        <li nz-menu-item>Option 1</li>
-        <li nz-menu-item>Option 2</li>
-      </ul>
-    </li>
-  </ul>
-  <nz-content>
-    <nz-breadcrumb>
-      <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-      <nz-breadcrumb-item>List</nz-breadcrumb-item>
-      <nz-breadcrumb-item>App</nz-breadcrumb-item>
-    </nz-breadcrumb>
-    <div class="inner-content">Content</div>
-  </nz-content>
-  <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <ul nz-menu nzMode="inline" class="sider-menu">
+      <li nz-menu-item nzSelected>
+        <i nz-icon nzType="dashboard"></i> 仪表盘
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="dashboard"></i> 仪表盘
+      </li>
+      <li nz-menu-divider></li>
+      <li nz-submenu nzIcon="project" nzTitle="文档管理">
+        <ul>
+          <li nz-menu-item>文档列表</li>
+          <li nz-menu-item>分类列表</li>
+          <li nz-menu-item>草稿箱</li>
+          <li nz-menu-item>回收站</li>
+        </ul>
+      </li>
+      <li nz-submenu nzIcon="user" nzTitle="访客管理">
+      </li>
+      <li nz-submenu nzTitle="系统设置" nzIcon="setting">
+        <ul>
+          <li nz-menu-item>协作者</li>
+          <li nz-menu-item>权限组</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="inner-layout">
+    <nz-content>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+        <nz-breadcrumb-item>List</nz-breadcrumb-item>
+        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <div class="inner-content">Content</div>
+    </nz-content>
+  </nz-layout>
 </nz-layout>
