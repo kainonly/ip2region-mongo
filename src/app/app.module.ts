@@ -22,10 +22,44 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { NzIconService } from 'ng-zorro-antd';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
+import { DocIndexComponent } from './doc-index/doc-index.component';
+import { DocAddComponent } from './doc-add/doc-add.component';
+import { DocEditComponent } from './doc-edit/doc-edit.component';
+import { TypeIndexComponent } from './type-index/type-index.component';
+import { TypeAddComponent } from './type-add/type-add.component';
+import { TypeEditComponent } from './type-edit/type-edit.component';
+import { RecycleComponent } from './recycle/recycle.component';
+import { UsersComponent } from './users/users.component';
+import { MessageComponent } from './message/message.component';
+import { AdminIndexComponent } from './admin-index/admin-index.component';
+import { AdminAddComponent } from './admin-add/admin-add.component';
+import { AdminEditComponent } from './admin-edit/admin-edit.component';
+import { RoleIndexComponent } from './role-index/role-index.component';
+import { RoleAddComponent } from './role-add/role-add.component';
+import { RoleEditComponent } from './role-edit/role-edit.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    ProfileComponent,
+    DocIndexComponent,
+    DocAddComponent,
+    DocEditComponent,
+    TypeIndexComponent,
+    TypeAddComponent,
+    TypeEditComponent,
+    RecycleComponent,
+    UsersComponent,
+    MessageComponent,
+    AdminIndexComponent,
+    AdminAddComponent,
+    AdminEditComponent,
+    RoleIndexComponent,
+    RoleAddComponent,
+    RoleEditComponent
   ],
   imports: [
     BrowserModule,
