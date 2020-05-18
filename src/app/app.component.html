@@ -1,42 +1,40 @@
 <nz-layout class="main-layout">
   <nz-sider nzWidth="200px" nzTheme="light">
     <ul nz-menu nzMode="inline" class="sider-menu">
-      <li nz-menu-item nzSelected>
-        <i nz-icon nzType="dashboard"></i> 仪表盘
-      </li>
-      <li nz-menu-item>
-        <i nz-icon nzType="idcard"></i> 个人中心
-      </li>
-      <li nz-menu-divider></li>
-      <li nz-submenu nzIcon="project" nzTitle="文档管理">
-        <ul>
-          <li nz-menu-item>文档列表</li>
-          <li nz-menu-item>分类列表</li>
-          <li nz-menu-item>回收站</li>
-        </ul>
-      </li>
-      <li nz-submenu nzIcon="team" nzTitle="访客管理">
-        <ul>
-          <li nz-menu-item>访客列表</li>
-          <li nz-menu-item>留言板</li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="系统设置" nzIcon="setting">
-        <ul>
-          <li nz-menu-item>
-            协作者
-          </li>
-          <li nz-menu-item>权限组</li>
-        </ul>
-      </li>
+      <ng-container *ngTemplateOutlet="menuTpl;context:{$implicit:menuLists}"></ng-container>
+      <ng-template #menuTpl let-menus>
+        <ng-container *ngFor="let menu of menus">
+          <ng-container *ngIf="!menu">
+            <li nz-menu-divider></li>
+          </ng-container>
+          <ng-container *ngIf="menu">
+            <ng-container *ngIf="!menu.hasOwnProperty('children')&&menu.nav!==0">
+              <li nz-menu-item [nzPaddingLeft]="menu.level * 24">
+                <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+                <span>{{ menu.name }}</span>
+              </li>
+            </ng-container>
+            <ng-container *ngIf="menu.hasOwnProperty('children')">
+              <li
+                nz-submenu
+                [nzPaddingLeft]="menu.level * 24"
+                [nzTitle]="menu.name"
+                [nzIcon]="menu.icon"
+              >
+                <ul *ngIf="containNav(menu.children)">
+                  <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
+                </ul>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-template>
     </ul>
   </nz-sider>
   <nz-layout class="inner-layout">
     <nz-content>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-        <nz-breadcrumb-item>List</nz-breadcrumb-item>
-        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+      <nz-breadcrumb [nzSeparator]="'>'">
+        <nz-breadcrumb-item>仪表盘</nz-breadcrumb-item>
       </nz-breadcrumb>
       <div class="inner-content">
         <router-outlet></router-outlet>
