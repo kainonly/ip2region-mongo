@@ -24,8 +24,8 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
-    path: 'system',
-    loadChildren: () => import('./system-routing.module').then(m => m.SystemRoutingModule)
+    path: 'sys',
+    loadChildren: () => import('./sys-routing.module').then(m => m.SysRoutingModule)
   }
 ];
 
