@@ -1,22 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { registerLocaleData } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxBitModule } from 'ngx-bit';
+import { environment } from '@env';
+import { ShareModule } from '@share';
 import zh from '@angular/common/locales/zh';
-import { environment } from '../environments/environment';
 
 registerLocaleData(zh);
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
-import { NzIconService } from 'ng-zorro-antd/icon';
 
 import { AppComponent } from './app.component';
-import { ShareModule } from './share.module';
 
 const routes: Routes = [
   {
@@ -36,9 +35,9 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     ShareModule,
+    NgxBitModule.forRoot(environment.bit),
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
@@ -46,9 +45,4 @@ const routes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(
-    nzIconService: NzIconService
-  ) {
-    nzIconService.changeAssetsSource(environment.iconUrl);
-  }
 }
