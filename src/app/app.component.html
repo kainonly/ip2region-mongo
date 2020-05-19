@@ -15,16 +15,23 @@
               </li>
             </ng-container>
             <ng-container *ngIf="menu.hasOwnProperty('children')">
-              <li
-                nz-submenu
-                [nzPaddingLeft]="menu.level * 24"
-                [nzTitle]="menu.name"
-                [nzIcon]="menu.icon"
-              >
-                <ul *ngIf="containNav(menu.children)">
-                  <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
-                </ul>
-              </li>
+              <ng-container *ngIf="containNav(menu.children);else notCintain">
+                <li
+                  nz-submenu
+                  [nzPaddingLeft]="menu.level * 24"
+                  [nzTitle]="menu.name"
+                  [nzIcon]="menu.icon"
+                >
+                  <ul>
+                    <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"></ng-container>
+                  </ul>
+                </li>
+              </ng-container>
+              <ng-template #notCintain>
+                <li nz-menu-item [nzPaddingLeft]="menu.level * 24">
+                  <span>{{ menu.name }}</span>
+                </li>
+              </ng-template>
             </ng-container>
           </ng-container>
         </ng-container>
