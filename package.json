@@ -1,5 +1,6 @@
 {
   "name": "minedoc",
+  "description": "Online markdown management tool based on Tencent CloudBase",
   "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
@@ -43,6 +44,17 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
+  },
+  "author": {
+    "name": "kain",
+    "email": "zhangtqx@vip.qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kainonly/minedoc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kainonly/minedoc/issues"
   },
   "license": "MIT"
 }
