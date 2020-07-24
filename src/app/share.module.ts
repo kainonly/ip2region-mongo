@@ -33,6 +33,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   exports: [
@@ -72,7 +73,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzAlertModule,
     NzResultModule,
     NzMessageModule,
-    NzUploadModule
+    NzUploadModule,
+    MarkdownModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -32,7 +32,9 @@
               "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/marked/lib/marked.js"
+            ]
           },
           "configurations": {
             "production": {
