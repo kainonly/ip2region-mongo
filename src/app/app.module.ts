@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { registerLocaleData } from '@angular/common';
@@ -16,6 +16,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     ShareModule,
+    MarkdownModule.forRoot({
+      loader: HttpClient
+    }),
     NgxBitModule.forRoot(environment.bit),
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
