@@ -2,20 +2,28 @@
   height: 100%;
 }
 
+[nz-menu] {
+  line-height: 64px;
+}
+
 nz-breadcrumb {
   margin: 16px 0;
 }
 
 nz-content {
   padding: 0 50px;
-}
-
-nz-footer {
-  text-align: center;
+  padding-top: 25px;
 }
 
 .inner-content {
   background: #fff;
   padding: 24px;
+  padding-bottom: 70px;
   min-height: 280px;
+}
+
+nz-footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }

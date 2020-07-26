@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BitDirectiveModule } from 'ngx-bit/directive';
-import { BitExtModule } from 'ngx-bit/component';
-import { BitPipeModule } from 'ngx-bit/pipe';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -40,9 +37,6 @@ import { MarkdownModule } from 'ngx-markdown';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    BitDirectiveModule,
-    BitExtModule,
-    BitPipeModule,
     NzButtonModule,
     NzIconModule,
     NzGridModule,

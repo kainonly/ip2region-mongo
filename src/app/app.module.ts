@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { registerLocaleData } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxBitModule } from 'ngx-bit';
 import { environment } from '@env';
 import { ShareModule } from '@share';
 import zh from '@angular/common/locales/zh';
@@ -17,15 +16,12 @@ import { zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { NzIconService } from 'ng-zorro-antd';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-  },
-  {
-    path: 'sys',
-    loadChildren: () => import('./sys-routing.module').then(m => m.SysRoutingModule)
   }
 ];
 
@@ -41,7 +37,6 @@ const routes: Routes = [
     MarkdownModule.forRoot({
       loader: HttpClient
     }),
-    NgxBitModule.forRoot(environment.bit),
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
@@ -49,4 +44,7 @@ const routes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(icon: NzIconService) {
+    icon.changeAssetsSource(environment.iconSource);
+  }
 }
