@@ -2,7 +2,7 @@
 
 辅助 Hyperf 框架的工具集合使用案例，构建简洁统一的中后台接口方案
 
-> 前端对应开源项目 https://github.com/kainonly/angularx-utils
+> 前端对应开源项目 https://github.com/kainonly/ngx-bit
 
 #### 安装
 
