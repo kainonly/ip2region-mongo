@@ -64,7 +64,7 @@ return [
 
 ```php
 return [
-    Hyperf\Extra\Hash\HashInterface::class => Hyperf\Extra\Hash\HashService::class,
+    Hyperf\Extra\Hash\HashInterface::class => Hyperf\Extra\Hash\HashFactory::class,
 ];
 ```
 
