@@ -18,7 +18,7 @@ return [
 
 ```php
 return [
-    Hyperf\Extra\Cipher\CipherInterface::class => Hyperf\Extra\Cipher\CipherService::class,
+    Hyperf\Extra\Cipher\CipherInterface::class => Hyperf\Extra\Cipher\CipherFactory::class,
 ];
 ```
 

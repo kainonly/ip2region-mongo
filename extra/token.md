@@ -22,7 +22,7 @@ return [
 
 ```php
 return [
-    Hyperf\Extra\Token\TokenInterface::class => Hyperf\Extra\Token\TokenService::class,
+    Hyperf\Extra\Token\TokenInterface::class => Hyperf\Extra\Token\TokenFactory::class,
 ];
 ```
 

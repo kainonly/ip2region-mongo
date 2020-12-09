@@ -4,7 +4,7 @@ Utils 常用工具集合，此服务必须安装 `kain/hyperf-extra`，在 `conf
 
 ```php
 return [
-    Hyperf\Extra\Utils\UtilsInterface::class => Hyperf\Extra\Utils\UtilsService::class,
+    Hyperf\Extra\Utils\UtilsInterface::class => Hyperf\Extra\Utils\UtilsFactory::class,
 ];
 ```
 
