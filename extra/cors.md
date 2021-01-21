@@ -25,7 +25,7 @@ return [
 
 ```php
 return [
-    Hyperf\Extra\Cors\CorsInterface::class => Hyperf\Extra\Cors\CorsFactory::class,
+    Hyperf\Extra\Cors\CorsInterface::class => Hyperf\Extra\Cors\CorsFactory::class
 ];
 ```
 
