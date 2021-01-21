@@ -13,14 +13,9 @@
   - [Token 令牌](extra/token)
   - [Utils 工具集](extra/utils)
   - [Helper 助手](extra/helper)
-
-- Middleware 中间件
-  - [CORS 跨站设置](middleware/cors)
-  - [Auth 鉴权验证](middleware/auth)
-  - [RBAC 权限验证](middleware/rbac)
-
-- Func 功能
-  - [Auth 登录鉴权](func/auth)
-  - [RedisModel 缓存模型](func/redis)
+  - [CORS 跨站设置](extra/cors)
+  - [Auth 鉴权验证](extra/auth)
+  - [RBAC 权限验证](extra/rbac)
+  - [RedisModel 缓存模型](extra/redis)
     - [SMS 短信验证](redis/sms)
     - [Refresh Token 缓存](redis/refresh-token)

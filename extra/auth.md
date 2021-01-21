@@ -1,4 +1,34 @@
-## Auth 登录鉴权
+## Auth 鉴权验证
+
+AuthMiddleware 鉴权验证是一个抽象定义中间件，使用时需要根据场景继承定义，例如
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace App\Middleware\System;
+
+use Hyperf\Extra\Auth\AuthMiddleware;
+
+class AuthVerify extends AuthMiddleware
+{
+    protected string $scene = 'system';
+}
+```
+
+- **scene** `string` 场景标签
+
+然后在将中间件注册在路由中
+
+```php
+AutoController(App\Controller\System\MainController::class, [
+    'middleware' => [
+        App\Middleware\System\AuthVerify::class => [
+            'resource', 'information', 'update', 'uploads'
+        ]
+    ]
+]);
+```
 
 Auth 创建登录后将 Token 字符串存储在Cookie 中，使用它需要引用该特性与部分依赖，以 `app/Controller/System/MainController.php` 为例
 
@@ -39,16 +69,23 @@ class MainController extends BaseController
             $data = $this->adminRedis->get($this->post['username']);
 
             if (empty($data)) {
-                throw new RuntimeException('username not exists');
+                return $this->response->json([
+                    'error' => 1,
+                    'msg' => 'username not exists'
+                ]);
             }
 
-            if (!$this->hash->check($this->post['password'], $data['password'])) {
-                throw new RuntimeException('password incorrect');
+            if (!$this->hash->check($body['password'], $data['password'])) {
+                return $this->response->json([
+                    'error' => 1,
+                    'msg' => 'password incorrect'
+                ]);
             }
-            $symbol = new stdClass();
-            $symbol->user = $data['username'];
-            $symbol->role = explode(',', $data['role']);
-            return $this->create('system', $symbol);
+
+            return $this->create('system', [
+                'user' =>  $data['username'],
+                'role' => explode(',', $data['role'])
+            ]);
         } catch (Exception $e) {
             return $this->response->json([
                 'error' => 1,
@@ -63,7 +100,6 @@ class MainController extends BaseController
     public function verify(): ResponseInterface
     {
         try {
-            $this->post = $this->request->post();
             return $this->authVerify('system');
         } catch (Exception $e) {
             return $this->response->json([
@@ -79,7 +115,6 @@ class MainController extends BaseController
     public function logout(): ResponseInterface
     {
         try {
-            $this->post = $this->request->post();
             return $this->destory('system');
         } catch (Exception $e) {
             return $this->response->json([

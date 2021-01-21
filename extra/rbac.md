@@ -1,6 +1,6 @@
 ## RBAC 权限验证
 
-RbacVerify 权限验证是一个抽象定义中间件，使用时需要根据场景继承定义，例如
+RbacMiddleware 权限验证是一个抽象定义中间件，使用时需要根据场景继承定义，例如
 
 ```php
 <?php
@@ -8,14 +8,21 @@ declare(strict_types=1);
 
 namespace App\Middleware\System;
 
-use Hyperf\Support\Middleware\RbacVerify as BaseRbacVerify;
+use App\RedisModel\System\AclRedis;
+use App\RedisModel\System\RoleRedis;
+use Hyperf\Extra\Rbac\RbacMiddleware;
 
-class RbacVerify extends BaseRbacVerify
+class RbacVerify extends RbacMiddleware
 {
     protected string $prefix = 'system';
     protected array $ignore = [
         'valided*'
     ];
+
+    public function __construct(RoleRedis $role, AclRedis $acl)
+    {
+        parent::__construct($role, $acl);
+    }
 }
 ```
 
