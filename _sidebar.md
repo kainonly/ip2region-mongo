@@ -1,11 +1,7 @@
 - CURD 模型库
-  - [安装使用](curd/setup)
-  - [Get 获取单个数据](curd/get)
-  - [OriginLists 获取列表数据](curd/origin-lists)
-  - [Lists 获取分页数据](curd/lists)
-  - [Add 新增数据](curd/add)
-  - [Edit 编辑数据](curd/edit)
-  - [Delete 删除数据](curd/delete)
+  - [Setup 安装](curd/setup)
+  - [Builder 构造器](curd/builder)
+  - [Common 通用特征](curd/common)
 
 - Extra 扩展
   - [Hash 密码](extra/hash)

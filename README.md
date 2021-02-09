@@ -4,6 +4,11 @@
 
 > 前端对应开源项目 https://github.com/kainonly/ngx-bit
 
+在线案例，https://console.kainonly.com
+
+- 用户 `super`
+- 密码 `pass@VAN1234`
+
 #### 安装
 
 首选需要创建一个 hyperf 官方的骨架项目
@@ -23,3 +28,5 @@ composer require kain/hyperf-curd
 ```shell script
 composer require kain/hyperf-extra
 ```
+
+数据迁移参考，https://github.com/kain-lab/lab-migrations
