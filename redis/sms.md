@@ -2,7 +2,7 @@
 
 手机短信验证码缓存类
 
-#### factory($phone, $code, $timeout = 120): bool
+### factory(string $phone, string $code, int $timeout = 120): bool
 
 设置手机验证码缓存
 
@@ -30,7 +30,7 @@ class IndexController
 }
 ```
 
-#### check($phone, $code, $once = false): bool
+### check(string $phone, string $code, bool $once = false): bool
 
 验证手机验证码
 
@@ -59,7 +59,7 @@ class IndexController
 
 ```
 
-#### time($phone): array
+### time(string $phone): array
 
 获取验证时间
 
