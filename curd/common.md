@@ -1,22 +1,9 @@
-## Setup 安装
+## Common 通用特征
 
-辅助 Hyperf 快速集成 CURD API 的工具集，首先需要安装依赖库 `kain/hyperf-curd`
-
-```shell
-composer require kain/hyperf-curd
-```
-
-在 `config/autoload/dependencies.php` 内完成关系配置
+使用通用特征快速生产需要的处理逻辑，这需要继承抽象类 `CurdController` ，其中包含一些静态属性需要在单例中重写（注意：属性重写定义需当成常量，存在变量逻辑会受协程影响），例如：
 
 ```php
-return [
-    Hyperf\Curd\CurdInterface::class => Hyperf\Curd\CurdService::class,
-];
-```
-
-可以定义一个顶层抽象类注入依赖，例如
-
-```php
+use Hyperf\Curd\CurdController;
 use Hyperf\Curd\CurdInterface;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Extra\Hash\HashInterface;
@@ -26,7 +13,7 @@ use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Hyperf\Validation\Contract\ValidatorFactoryInterface;
 
-abstract class BaseController
+abstract class BaseController extends CurdController
 {
     /**
      * @Inject()
@@ -65,3 +52,15 @@ abstract class BaseController
     protected UtilsInterface $utils;
 }
 ```
+
+### 列表查询
+
+### 分页查询
+
+### 数据查询
+
+### 新增
+
+### 修改
+
+### 删除
