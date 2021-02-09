@@ -15,3 +15,4 @@
   - [RedisModel 缓存模型](extra/redis)
     - [SMS 短信验证](redis/sms)
     - [Refresh Token 缓存](redis/refresh-token)
+    - [UserLock 用户锁定](redis/user-lock)
