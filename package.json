@@ -1,7 +1,0 @@
-{
-  "name": "hyperf-extend-doc",
-  "scripts": {
-    "start": "docsify serve",
-    "deploy": "python deploy.py"
-  }
-}
