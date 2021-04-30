@@ -19,7 +19,7 @@ inputs:
   enableRoleAuth: true
   events:
     - apigw:
-        name: SCF_IP_REGION
+        name: SCF_OPEN_API
         parameters:
           endpoints:
             - function:
