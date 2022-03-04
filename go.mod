@@ -8,6 +8,7 @@ require (
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/google/wire v0.5.0
+	github.com/panjf2000/ants/v2 v2.4.8
 	github.com/weplanx/go v0.0.1
 	go.mongodb.org/mongo-driver v1.8.3
 	go.uber.org/zap v1.19.1

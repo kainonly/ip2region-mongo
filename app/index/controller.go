@@ -13,10 +13,8 @@ type Controller struct {
 func (x *Controller) Run(c *gin.Context) interface{} {
 	ctx := c.Request.Context()
 	log.Println("Sync Data")
-	result, err := x.Service.SyncData(ctx)
-	if err != nil {
+	if err := x.Service.SyncData(ctx); err != nil {
 		return err
 	}
-	log.Println("Insert", len(result.InsertedIDs))
 	return gin.H{"sync": time.Now()}
 }
