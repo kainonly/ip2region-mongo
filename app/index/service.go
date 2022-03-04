@@ -4,9 +4,6 @@ import (
 	"bufio"
 	"context"
 	"github.com/panjf2000/ants/v2"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"io"
 	"ip2region-mongo/common"
 	"ip2region-mongo/model"
@@ -69,7 +66,8 @@ func (x *Service) SyncData(ctx context.Context) (err error) {
 		}
 		v := strings.Split(row, "|")
 		bulk = append(bulk, model.IP{
-			Range:    []uint64{ip2Dec(v[0]), ip2Dec(v[1])},
+			Start:    ip2Dec(v[0]),
+			End:      ip2Dec(v[1]),
 			Country:  isZero(v[2]),
 			Province: isZero(v[4]),
 			City:     isZero(v[5]),
@@ -82,14 +80,5 @@ func (x *Service) SyncData(ctx context.Context) (err error) {
 		}
 	}
 	wg.Wait()
-	if _, err = x.Db.Collection("ip").Indexes().
-		CreateMany(ctx, []mongo.IndexModel{
-			{
-				Keys:    bson.M{"range": 1},
-				Options: options.Index().SetName("idx_range"),
-			},
-		}); err != nil {
-		return
-	}
 	return
 }
