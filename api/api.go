@@ -1,23 +1,42 @@
-package index
+package api
 
 import (
 	"bufio"
 	"context"
+	"fmt"
+	"github.com/kainonly/ip2region-mongo/common"
+	"github.com/kainonly/ip2region-mongo/model"
 	"github.com/panjf2000/ants/v2"
 	"io"
-	"ip2region-mongo/common"
-	"ip2region-mongo/model"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
-type Service struct {
+type API struct {
 	*common.Inject
 }
 
-func (x *Service) SyncData(ctx context.Context) (err error) {
+func (x *API) EventInvoke(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		return
+	}
+
+	fmt.Println("开始同步数据")
+	ctx := req.Context()
+	if err := x.SyncData(ctx); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(fmt.Sprintf(`已同步: %s`, time.Now())))
+}
+
+func (x *API) SyncData(ctx context.Context) (err error) {
 	client := http.DefaultClient
 	url := `https://raw.githubusercontent.com/lionsoul2014/ip2region/master/data/ip.merge.txt`
 	var req *http.Request
@@ -29,8 +48,7 @@ func (x *Service) SyncData(ctx context.Context) (err error) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	if err = x.Db.Collection("ip").
-		Drop(ctx); err != nil {
+	if err = x.Db.Collection("ip").Drop(ctx); err != nil {
 		return
 	}
 	var wg sync.WaitGroup
@@ -55,6 +73,7 @@ func (x *Service) SyncData(ctx context.Context) (err error) {
 			if err == io.EOF {
 				wg.Add(1)
 				_ = p.Invoke(bulk)
+				err = nil
 				break
 			} else {
 				return
@@ -66,8 +85,7 @@ func (x *Service) SyncData(ctx context.Context) (err error) {
 		}
 		v := strings.Split(row, "|")
 		bulk = append(bulk, model.IP{
-			Start:    ip2Dec(v[0]),
-			End:      ip2Dec(v[1]),
+			Range:    []uint64{ip2Dec(v[0]), ip2Dec(v[1])},
 			Country:  isZero(v[2]),
 			Province: isZero(v[4]),
 			City:     isZero(v[5]),
@@ -81,4 +99,20 @@ func (x *Service) SyncData(ctx context.Context) (err error) {
 	}
 	wg.Wait()
 	return
+}
+
+func isZero(value string) string {
+	if value == "0" {
+		return ""
+	}
+	return value
+}
+
+func ip2Dec(value string) uint64 {
+	ip := uint64(0)
+	for k, v := range strings.Split(value, ".") {
+		n, _ := strconv.ParseUint(v, 10, 64)
+		ip |= n << ((3 - uint64(k)) << 3)
+	}
+	return ip
 }

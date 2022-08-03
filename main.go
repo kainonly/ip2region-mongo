@@ -1,15 +1,16 @@
 package main
 
-import "ip2region-mongo/bootstrap"
+import (
+	"github.com/kainonly/ip2region-mongo/bootstrap"
+	"net/http"
+)
 
 func main() {
-	values, err := bootstrap.SetValues()
+	api, err := bootstrap.NewAPI()
 	if err != nil {
 		panic(err)
 	}
-	app, err := App(values)
-	if err != nil {
-		panic(err)
-	}
-	app.Run(":9000")
+
+	http.HandleFunc("/event-invoke", api.EventInvoke)
+	http.ListenAndServe(":9000", nil)
 }
