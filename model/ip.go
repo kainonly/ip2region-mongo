@@ -1,10 +1,14 @@
 package model
 
 type IP struct {
-	Start    uint64 `bson:"start"`
-	End      uint64 `bson:"end"`
-	Country  string `bson:"country"`
+	// 查询范围
+	Range []uint64 `bson:"range"`
+	// 国家 / 地区
+	Country string `bson:"country"`
+	// 省 / 州
 	Province string `bson:"province"`
-	City     string `bson:"city"`
-	ISP      string `bson:"isp"`
+	// 市
+	City string `bson:"city"`
+	// 运营商
+	ISP string `bson:"isp"`
 }
