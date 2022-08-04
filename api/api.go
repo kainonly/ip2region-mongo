@@ -7,6 +7,9 @@ import (
 	"github.com/kainonly/ip2region-mongo/common"
 	"github.com/kainonly/ip2region-mongo/model"
 	"github.com/panjf2000/ants/v2"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"io"
 	"log"
 	"net/http"
@@ -98,6 +101,14 @@ func (x *API) SyncData(ctx context.Context) (err error) {
 		}
 	}
 	wg.Wait()
+	if _, err = x.Db.Collection("ip").Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys: bson.D{{"range", 1}},
+		Options: options.Index().
+			SetName("range_idx").
+			SetUnique(true),
+	}); err != nil {
+		return
+	}
 	return
 }
 

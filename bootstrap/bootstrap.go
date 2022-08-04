@@ -7,6 +7,7 @@ import (
 	"github.com/kainonly/ip2region-mongo/common"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/writeconcern"
 )
 
 var Provides = wire.NewSet(
@@ -38,7 +39,7 @@ func UseMongoDB(values *common.Values) (*mongo.Client, error) {
 // 配置文档 https://www.mongodb.com/docs/drivers/go/current/
 // https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo
 func UseDatabase(client *mongo.Client, values *common.Values) (db *mongo.Database) {
-	//option := options.Database().
-	//	SetWriteConcern(writeconcern.New(writeconcern.WMajority()))
-	return client.Database(values.Database.DbName)
+	option := options.Database().
+		SetWriteConcern(writeconcern.New(writeconcern.WMajority()))
+	return client.Database(values.Database.DbName, option)
 }
