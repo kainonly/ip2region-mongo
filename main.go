@@ -12,5 +12,5 @@ func main() {
 	}
 
 	http.HandleFunc("/event-invoke", api.EventInvoke)
-	http.ListenAndServe(":9000", nil)
+	http.ListenAndServe(api.Values.Address, nil)
 }
