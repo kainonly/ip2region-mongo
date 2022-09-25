@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/kainonly/ip2region-mongo/bootstrap"
+	"github.com/kainonly/ip2region-sync/bootstrap"
 	"net/http"
 )
 

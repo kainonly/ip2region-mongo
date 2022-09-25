@@ -4,12 +4,9 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"github.com/kainonly/ip2region-mongo/common"
-	"github.com/kainonly/ip2region-mongo/model"
+	"github.com/kainonly/ip2region-sync/common"
+	"github.com/kainonly/ip2region-sync/model"
 	"github.com/panjf2000/ants/v2"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"io"
 	"log"
 	"net/http"
@@ -51,15 +48,11 @@ func (x *API) SyncData(ctx context.Context) (err error) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	if err = x.Db.Collection("ip").Drop(ctx); err != nil {
-		return
-	}
 	var wg sync.WaitGroup
 	var p *ants.PoolWithFunc
 	if p, err = ants.NewPoolWithFunc(100, func(i interface{}) {
-		if v, ok := i.([]interface{}); ok {
-			if _, err := x.Db.Collection("ip").
-				InsertMany(ctx, v); err != nil {
+		if v, ok := i.([]model.Ipv4); ok {
+			if err = x.Db.CreateInBatches(v, 1000).WithContext(ctx).Error; err != nil {
 				log.Fatalln(err)
 			}
 		}
@@ -68,7 +61,7 @@ func (x *API) SyncData(ctx context.Context) (err error) {
 		return
 	}
 	defer p.Release()
-	var bulk []interface{}
+	var bulk []model.Ipv4
 	buf := bufio.NewReader(resp.Body)
 	for {
 		var s string
@@ -87,8 +80,9 @@ func (x *API) SyncData(ctx context.Context) (err error) {
 			continue
 		}
 		v := strings.Split(row, "|")
-		bulk = append(bulk, model.IP{
-			Range:    []uint64{ip2Dec(v[0]), ip2Dec(v[1])},
+		bulk = append(bulk, model.Ipv4{
+			Start:    ip2Dec(v[0]),
+			End:      ip2Dec(v[1]),
 			Country:  isZero(v[2]),
 			Province: isZero(v[4]),
 			City:     isZero(v[5]),
@@ -97,18 +91,10 @@ func (x *API) SyncData(ctx context.Context) (err error) {
 		if len(bulk) == 5000 {
 			wg.Add(1)
 			_ = p.Invoke(bulk)
-			bulk = []interface{}{}
+			bulk = []model.Ipv4{}
 		}
 	}
 	wg.Wait()
-	if _, err = x.Db.Collection("ip").Indexes().CreateOne(ctx, mongo.IndexModel{
-		Keys: bson.D{{"range", 1}},
-		Options: options.Index().
-			SetName("range_idx").
-			SetUnique(true),
-	}); err != nil {
-		return
-	}
 	return
 }
 
