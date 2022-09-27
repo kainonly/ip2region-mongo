@@ -1,6 +1,6 @@
-# Ip2region Sync
+# Ip2region Mongo
 
-IP 信息同步至数据库，数据支持来自：
+IP 信息同步至 MongoDB，数据支持来自：
 
 - https://github.com/lionsoul2014/ip2region
 
@@ -17,5 +17,5 @@ IP 信息同步至数据库，数据支持来自：
 
 ## 环境变量
 
-- **ADDRESS** 监听地址
-- **DATABASE** MySQL 连接 URI
+- **DATABASE_URI** MongoDB 连接 URI
+- **DATABASE_DBNAME** 数据库名称

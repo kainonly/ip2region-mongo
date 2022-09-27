@@ -5,8 +5,8 @@ package bootstrap
 
 import (
 	"github.com/google/wire"
-	"github.com/kainonly/ip2region-sync/api"
-	"github.com/kainonly/ip2region-sync/common"
+	"github.com/kainonly/ip2region-mongo/api"
+	"github.com/kainonly/ip2region-mongo/common"
 )
 
 func NewAPI() (*api.API, error) {
