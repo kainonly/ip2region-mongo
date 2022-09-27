@@ -8,6 +8,7 @@ package bootstrap
 
 import (
 	"github.com/kainonly/ip2region-sync/api"
+	"github.com/kainonly/ip2region-sync/common"
 )
 
 // Injectors from wire.go:
@@ -21,9 +22,12 @@ func NewAPI() (*api.API, error) {
 	if err != nil {
 		return nil, err
 	}
-	apiAPI := &api.API{
+	inject := &common.Inject{
 		Values: values,
 		Db:     db,
+	}
+	apiAPI := &api.API{
+		Inject: inject,
 	}
 	return apiAPI, nil
 }
