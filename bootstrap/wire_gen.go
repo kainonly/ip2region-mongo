@@ -7,8 +7,8 @@
 package bootstrap
 
 import (
-	"github.com/kainonly/ip2region-sync/api"
-	"github.com/kainonly/ip2region-sync/common"
+	"github.com/kainonly/ip2region-mongo/api"
+	"github.com/kainonly/ip2region-mongo/common"
 )
 
 // Injectors from wire.go:
@@ -18,13 +18,15 @@ func NewAPI() (*api.API, error) {
 	if err != nil {
 		return nil, err
 	}
-	db, err := UseGorm(values)
+	client, err := UseMongoDB(values)
 	if err != nil {
 		return nil, err
 	}
+	database := UseDatabase(client, values)
 	inject := &common.Inject{
-		Values: values,
-		Db:     db,
+		Values:      values,
+		MongoClient: client,
+		Db:          database,
 	}
 	apiAPI := &api.API{
 		Inject: inject,
