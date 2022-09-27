@@ -7,7 +7,6 @@ import (
 	"github.com/kainonly/ip2region-sync/common"
 	"github.com/kainonly/ip2region-sync/model"
 	"github.com/panjf2000/ants/v2"
-	"gorm.io/gorm"
 	"io"
 	"log"
 	"net/http"
@@ -18,8 +17,7 @@ import (
 )
 
 type API struct {
-	Values *common.Values
-	Db     *gorm.DB
+	*common.Inject
 }
 
 func (x *API) EventInvoke(w http.ResponseWriter, req *http.Request) {
